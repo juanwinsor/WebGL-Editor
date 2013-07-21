@@ -65,8 +65,6 @@ function initializeFileMenu() {
                 break;
             
             case "delete":
-                
-                //alert($('#directory').jstree('get_selected').text());
                 var fname = $('#directory').jstree('get_selected').text().trim(); //trim white spaces from the file name
                 if(fname == "game.js")
                 {
@@ -74,17 +72,20 @@ function initializeFileMenu() {
                 }
                 else
                 {
-                    //determine if anything is selected, check if file or folder then call the appropriate delete
-                    if($('#directory').jstree('get_selected').attr('rel').slice(0, 9) == "file_code" || $('#directory').jstree('get_selected').attr('rel').slice(0, 10) == "file_image")
-                    {
-                        var filepath = $('#directory').jstree('get_selected').attr('path') + $('#directory').jstree('get_selected').children("a").text().replace(String.fromCharCode(160), "");
-                        deleteFile(filepath);
-                    }
-                    
-                    if($('#directory').jstree('get_selected').attr('rel') == "folder")
-                    {
-                        var filepath = $('#directory').jstree('get_selected').attr('path') + $('#directory').jstree('get_selected').children("a").text().replace(String.fromCharCode(160), "");
-                        deleteFolder(filepath);
+                    //confirm delete
+                    if (confirm("delete " + $('#directory').jstree('get_selected').text().trim() + "?")) {
+                        //determine if anything is selected, check if file or folder then call the appropriate delete
+                        if($('#directory').jstree('get_selected').attr('rel').slice(0, 9) == "file_code" || $('#directory').jstree('get_selected').attr('rel').slice(0, 10) == "file_image")
+                        {
+                            var filepath = $('#directory').jstree('get_selected').attr('path') + $('#directory').jstree('get_selected').children("a").text().replace(String.fromCharCode(160), "");
+                            deleteFile(filepath);
+                        }
+                        
+                        if($('#directory').jstree('get_selected').attr('rel') == "folder")
+                        {
+                            var filepath = $('#directory').jstree('get_selected').attr('path') + $('#directory').jstree('get_selected').children("a").text().replace(String.fromCharCode(160), "");
+                            deleteFolder(filepath);
+                        }   
                     }
                 }
                 break;

@@ -65,20 +65,28 @@ function initializeFileMenu() {
                 break;
             
             case "delete":
-                //determine if anything is selected
-                if($('#directory').jstree('get_selected').attr('rel') == "file_code" || $('#directory').jstree('get_selected').attr('rel') == "file_image")
+                
+                //alert($('#directory').jstree('get_selected').text());
+                var fname = $('#directory').jstree('get_selected').text().trim(); //trim white spaces from the file name
+                if(fname == "game.js")
                 {
-                    var filepath = $('#directory').jstree('get_selected').attr('path') + $('#directory').jstree('get_selected').children("a").text().replace(String.fromCharCode(160), "");
-                    deleteFile(filepath);
+                    alert("You cannot delete game.js.");
                 }
-                
-                if($('#directory').jstree('get_selected').attr('rel') == "folder")
+                else
                 {
-                    var filepath = $('#directory').jstree('get_selected').attr('path') + $('#directory').jstree('get_selected').children("a").text().replace(String.fromCharCode(160), "");
-                    deleteFolder(filepath);
+                    //determine if anything is selected, check if file or folder then call the appropriate delete
+                    if($('#directory').jstree('get_selected').attr('rel').slice(0, 9) == "file_code" || $('#directory').jstree('get_selected').attr('rel').slice(0, 10) == "file_image")
+                    {
+                        var filepath = $('#directory').jstree('get_selected').attr('path') + $('#directory').jstree('get_selected').children("a").text().replace(String.fromCharCode(160), "");
+                        deleteFile(filepath);
+                    }
+                    
+                    if($('#directory').jstree('get_selected').attr('rel') == "folder")
+                    {
+                        var filepath = $('#directory').jstree('get_selected').attr('path') + $('#directory').jstree('get_selected').children("a").text().replace(String.fromCharCode(160), "");
+                        deleteFolder(filepath);
+                    }
                 }
-                
-                
                 break;
             
             case "upload image":
@@ -101,11 +109,37 @@ function initializeFileMenu() {
                 switch($("#filenameDialog").attr("fileType"))
                 {
                 case "folder":
-                    createNewFolder($("#filenameTextbox").val());
+                    //check filename is not blank
+                    if($("#filenameTextbox").val() != "")
+                    {
+                        createNewFolder($("#filenameTextbox").val());
+                    }
+                    else
+                    {
+                        alert("please enter a folder name.");
+                    }
                     break;
                 
                 case "js":
-                    createFile($("#filenameTextbox").val() + ".js");
+                    //check filename is not blank
+                    if($("#filenameTextbox").val() != "")
+                    {
+                        //if user already typed extension then don't add it
+                        var fileNameSplit = $("#filenameTextbox").val().split(".");
+                        if (fileNameSplit[1] == "js") {
+                            createFile($("#filenameTextbox").val());
+                        }
+                        else
+                        {
+                            createFile($("#filenameTextbox").val() + ".js");
+                        }
+                    }
+                    else
+                    {
+                        alert("please enter a filename.");
+                    }
+                    
+                    
                     break;
                 }
                 

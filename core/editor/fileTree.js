@@ -10,12 +10,32 @@ function initializeFileTree() {
     treeDir = $("#directory").jstree({
         "types": {
             "types": {
-                "file_code" : {
+                "file_code_js" : {
                     "icon" : {
                         "image" : "../../media/fileicons/code16.png"
                     }                            
                 },
-                "file_image" : {
+                "file_code_fs" : {
+                    "icon" : {
+                        "image" : "../../media/fileicons/code16.png"
+                    }                            
+                },
+                "file_code_vs" : {
+                    "icon" : {
+                        "image" : "../../media/fileicons/code16.png"
+                    }                            
+                },
+                "file_image_bmp" : {
+                    "icon" : {
+                        "image" : "../../media/fileicons/image16.png"
+                    }                            
+                },
+                "file_image_png" : {
+                    "icon" : {
+                        "image" : "../../media/fileicons/image16.png"
+                    }                            
+                },
+                "file_image_gif" : {
                     "icon" : {
                         "image" : "../../media/fileicons/image16.png"
                     }                            
@@ -100,8 +120,11 @@ function initializeFileTree() {
           {
             var filepath = $('#directory').jstree('get_selected').attr('path') + $('#directory').jstree('get_selected').children("a").text().replace(String.fromCharCode(160), "");
             
+            
+            var selectedRel = $('#directory').jstree('get_selected').attr('rel');
+            var selectedSlice = selectedRel.slice(0, 10);
             //if selected file is an image then display it in the inspector panel
-            if($('#directory').jstree('get_selected').attr('rel') == "file_image")
+            if(selectedSlice == "file_image")
             {
                 $('#editor').css('visibility', 'hidden');
                 $('#inspector').css('visibility', 'visible');
@@ -110,7 +133,7 @@ function initializeFileTree() {
             }
             
             //if selected file is a code file then display it in the editor
-            if($('#directory').jstree('get_selected').attr('rel') == "file_code")
+            if($('#directory').jstree('get_selected').attr('rel').slice(0, 9) == "file_code")
             {
                 $('#editor').css('visibility', 'hidden');
                 $('#inspector').css('visibility', 'visible');

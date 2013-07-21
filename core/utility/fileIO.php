@@ -60,27 +60,43 @@ class FileHandler
                         
                         $split = str_split($entry, strpos($entry, ".") + 1);
                         
+                        $ignoreFile = false;
+                        
                         switch($split[1])
                         {
                             case "png":
-                                $fileType = "file_image";
+                                $fileType = "file_image_png";
                                 break;
                             
                             case "bmp":
-                                $fileType = "file_image";
+                                $fileType = "file_image_bmp";
                                 break;
                             
                             case "gif":
-                                $fileType = "file_image";
+                                $fileType = "file_image_gif";
                                 break;
                             
                             case "js":
-                                $fileType = "file_code";
+                                $fileType = "file_code_js";
                                 break;
                             
+                            case "fs": //fragment shader
+                                $fileType = "file_code_fs";
+                                break;
+                            
+                            case "vs": //vertex shader
+                                $fileType = "file_code_vs";
+                                break;
+                            
+                            default:
+                                $ignoreFile = true;
+                                break;
                         }
                         
-                        echo "<li rel=\"" . $fileType . "\" path=\"" . $dir . "/\"><a href=\"#\">" . $entry . "</a></li>";
+                        if($split[1] != "" && $ignoreFile == false) //check to make sure it has a valid extension and is a recognized file type
+                        {
+                            echo "<li rel=\"" . $fileType . "\" path=\"" . $dir . "/\"><a href=\"#\">" . $entry . "</a></li>";
+                        }
                     }
                 }
             }

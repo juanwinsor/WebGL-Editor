@@ -113,7 +113,7 @@ $projectID = htmlspecialchars($_GET["project"]);
     
     <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script type="text/javascript" src="http://static.jstree.com/v.1.0pre/jquery.jstree.js"></script>    
+    <script type="text/javascript" src="../utility/jstree/v1.0pre/jquery.jstree.js"></script>    
     <script src="../utility/jqueryui/js/jquery-ui-1.9.2.custom.js"></script>
     <script src="codeEditor.js"></script>
     <script src="fileTree.js"></script>
